@@ -1,19 +1,39 @@
-import { useState } from "react";
-function Selam (props: { mulueshim: string, idme: number }) {
-  return <h1>Hello, {props.mulueshim}! you are {props.idme} years old.</h1>;
-}
-function App() {
-  const people = [
-    { id: 1, mulueshim: "Alice", idme: 25 },
-    { id: 2, mulueshim: "Bob", idme: 30 },
-    { id: 3, mulueshim: "Charlie", idme: 35 },
-  ];
-  return (
+import {useState} from 'react';
+import{useEffect} from 'react';
+
+function App(){
+  const [count, setCount] = useState(0);
+  const [shim, shimseter] = useState("");
+  return(
     <div>
-      {people.map((person) => (
-        <Selam key={person.id} mulueshim={person.mulueshim} idme={person.idme} />
-      ))}
+      <Hito selambel={(agateme) => shimseter("hello " + shim)}/>
+      <Greet shim = {shim}/>
+      <Display count={count}/>
+      <Buttton demr={() => setCount(count + 1)}/>
     </div>
-  );
+  )
+    
 }
-export default App
+
+function Buttton({demr}: {demr: () => void}){
+  return(
+    <button onClick={demr}>Click me</button>
+  )
+}
+function Display({count}: {count: number}){
+  return(
+    <h1>Display: {count}</h1>
+  )
+}
+
+function Greet({shim}:{shim:string}){
+  return (
+    <h1> hello {shim}</h1>
+  )
+}
+function Hito({selambel}:{selambel:(input.value)=>void}){
+  return(
+    <input type="text" onChange={selambel}/>
+  )
+}
+export default App;
