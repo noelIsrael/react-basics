@@ -6,7 +6,7 @@ function App(){
   const [shim, shimseter] = useState("");
   return(
     <div>
-      <Hito selambel={(agateme) => shimseter("hello " + shim)}/>
+      <Hito selambel={(agateme) => shimseter(agateme.target.value)}/>
       <Greet shim = {shim}/>
       <Display count={count}/>
       <Buttton demr={() => setCount(count + 1)}/>
@@ -31,7 +31,7 @@ function Greet({shim}:{shim:string}){
     <h1> hello {shim}</h1>
   )
 }
-function Hito({selambel}:{selambel:(input.value)=>void}){
+function Hito({selambel}:{selambel:(event: React.ChangeEvent<HTMLInputElement>)=>void}){
   return(
     <input type="text" onChange={selambel}/>
   )
