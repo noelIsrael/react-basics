@@ -1,14 +1,25 @@
-import Message from "./Message.tsx";
-import { useState } from "react";
+// import Message from "./Message.tsx";
+// import { useState } from "react";
+function Shower(props: { name?: string; age: number }) {
+  return (
+    <h4>
+      hi {props.name} you are {props.age}
+    </h4>
+  );
+}
 function App() {
-  const [num, numSetter] = useState(0);
-  console.log("comp app renderer")
-  
+  const noni = { name: "noel", age: 22 };
+  const abi = { name: "abi", age: 23 };
+  const friends = [noni, abi];
+  // const me = "noh";
+
   return (
     <div>
-      <h2>the number is, {num}</h2>
-      <button onClick={()=>numSetter((num)=> num+1)}>counter</button>
-      <Message/>
+      {friends
+        .filter((fri) => fri.age > 22)
+        .map((friend) => (
+          <Shower name={friend.name} age={friend.age} />
+        ))}
     </div>
   );
 }
