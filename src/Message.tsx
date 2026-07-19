@@ -1,7 +1,16 @@
+import { useState } from "react";
+
+function Greeting (props:{shim :string}){
+    return (
+        <h1>Hello {props.shim}</h1>
+    )
+}
 function Message() {
+  const [name, setName] = useState("");
   return (
     <>
-      <h1>Hello World</h1>
+      <input onChange={(x)=>setName(x.target.value)}/>
+      <Greeting shim={name}/>
     </>
   );
 }
