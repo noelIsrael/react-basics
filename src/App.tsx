@@ -1,5 +1,5 @@
 import Areylen from "./areylen.tsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 function Display (props : {name:string}){
   return(
     <h4 >hi {props.name} </h4>
@@ -19,14 +19,34 @@ function New ({sebwesk} : {sebwesk : (name:string , id:number)=> void}){
 
 
 function App() {
-  const noel = {id: 1, name:'noni'};
-  const abel = {id:2, name:'abi'};
-  const sada = {id:3, name:'sadu'};
+  const [loading,loadingSet] = useState(true)
+  const[error, errorSet]= useState("");
+  const [arey, areySeter] = useState<{name:string,id:number}[]>([]);
 
+  async function getUsers(){
+      try{
+        const whatwegot = await fetch ('https://jsonplaceholder.typicode.com/users');
+        if(!whatwegot.ok){
+          throw new Error("user not found, status: "+ whatwegot.status);
+        } else {
+          const data = await whatwegot.json();
+          areySeter(data);
+        }
+      }
+      catch(err){
+        errorSet('something went wrong '+ (err as Error).message);
+      }
+      finally {
+        loadingSet(false);
+      }
+  }
 
-  const [arey, areySeter] = useState([noel,abel,sada])
+  useEffect(()=>{getUsers();},[]);
   return(
     <>
+    {loading && <p>loading...</p>}
+    {error && <p>{error}</p>}
+
     {arey.map((human)=> (<Display key={human.id} name={human.name} />))}
     <New sebwesk={(name,id)=>areySeter([...arey,{name:name,id:id} ])}/>
     <Areylen bzhi={arey.length} />
